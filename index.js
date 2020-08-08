@@ -13,7 +13,7 @@ app.use(express.static('public'))
 
 // GET - main index of site
 app.get('/', function(req, res) {
-  let pokemonUrl = 'http://pokeapi.co/api/v2/pokemon?limit=151';
+  let pokemonUrl = 'http://pokeapi.co/api/v2/pokemon/';
   // Use request to call the API
   axios.get(pokemonUrl).then(response => {
     let pokemon = response.data.results;
