@@ -1,7 +1,10 @@
-<h1>Favorite Pokemons</h1>
+<div class="container">
+    <h1>Favorite Pokemons</h1>
 
-<% myPoke.forEach(p => { %>
-    <div>
-        <h2> <%= p.name %> </h2>
-    </div>
-<% }) %> 
+    <% myPoke.forEach(p => { %>
+        <div>
+            <h2><a href="/pokemon/<%= p.id %>">
+                <%= p.name %></a></h2>
+        </div>
+    <% }) %> 
+</div>

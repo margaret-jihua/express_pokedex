@@ -16,9 +16,19 @@ router.post('/', function(req, res) {
   db.pokemon.create({
     name: req.body.name
   }).then(function(poke) {
-    console.log('Created: ', poke.name)
+    console.log('Created: ', poke.name);
   })
   res.redirect('pokemon');
 });
+
+// GET /pokemon/:id - rander a show page with infomation about the pokemon by its row id
+router.get('/:id', function (req, res) {
+  let pokeId = req.params.id;
+  db.pokemon.findOne({
+    where: {id: pokeId}
+  }).then(function(poke) {
+    res.render('show', {myPoke: poke});
+  })
+})
 
 module.exports = router;
