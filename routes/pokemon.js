@@ -1,12 +1,14 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../models')
-
+const axios = require('axios'); 
+let pokemonUrl = 'http://pokeapi.co/api/v2/pokemon/';
+  
 // GET /pokemon - return a page with favorited Pokemon
 router.get('/', function(req, res) {
   // TODO: Get all records from the DB and render to view
-  db.pokemon.findAll().then(function(poke) {
-    res.render('pokemon', {myPoke: poke});
+  db.pokemon.findAll().then(function(poke) {    
+    res.render('pokemon', {myPoke: poke});    
   })
 });
 
@@ -27,7 +29,12 @@ router.get('/:id', function (req, res) {
   db.pokemon.findOne({
     where: {id: pokeId}
   }).then(function(poke) {
-    res.render('show', {myPoke: poke});
+    // Get API data of this pokemon
+    let url = pokemonUrl+poke.name.toLowerCase()
+    axios.get(url).then(response => {
+      let pokemon = response.data;
+      res.render('show', {myPoke: pokemon});
+    })
   })
 })
 

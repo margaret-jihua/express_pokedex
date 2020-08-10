@@ -3,8 +3,15 @@
 
     <% myPoke.forEach(p => { %>
         <div>
-            <h2><a href="/pokemon/<%= p.id %>">
-                <%= p.name %></a></h2>
+            <h2>
+                <a href="/pokemon/<%= p.id %>">
+                <%= p.name %>
+                </a>
+            </h2>
+            <form method="POST" action="/">
+                <a type="submit" class="btn-floating waves-effect waves-light lightblue"><i class="material-icons">clear</i></a>
+            </form>
+        
         </div>
     <% }) %> 
 </div>
