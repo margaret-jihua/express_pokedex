@@ -11,8 +11,10 @@ router.use(methodOverride('_method'));
 // GET /pokemon - return a page with favorited Pokemon
 router.get('/', function(req, res) {
   // TODO: Get all records from the DB and render to view
-  db.pokemon.findAll().then(function(poke) {    
+  db.pokemon.findAll().then(function(poke) { 
     res.render('pokemon', {myPoke: poke});    
+  }).catch(err => {
+    console.log(err);
   })
 });
 
@@ -23,6 +25,8 @@ router.post('/', function(req, res) {
     name: req.body.name
   }).then(function(poke) {
     res.redirect('/pokemon');
+  }).catch(err => {
+    console.log(err);
   })
 });
 
@@ -31,6 +35,8 @@ router.delete('/:id', function(req, res) {
     where: {id: req.params.id}
   }).then(function(poke){
     res.redirect('/pokemon')//Not 'pokemon', coz it direct to '/pokemon/id/pokemon'
+  }).catch(err => {
+    console.log(err);
   })
 })
 
@@ -45,7 +51,11 @@ router.get('/:id', function (req, res) {
     axios.get(url).then(response => {
       let pokemon = response.data;
       res.render('show', {myPoke: pokemon});
+    }).catch(err => {
+      console.log(err);
     })
+  }).catch(err => {
+    console.log(err);
   })
 })
 
