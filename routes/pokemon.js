@@ -1,8 +1,12 @@
 var express = require('express');
+var methodOverride = require('method-override');
 var router = express.Router();
 var db = require('../models')
 const axios = require('axios'); 
 let pokemonUrl = 'http://pokeapi.co/api/v2/pokemon/';
+
+// Use method-override to implement delete reoutes in express 
+router.use(methodOverride('_method'));
   
 // GET /pokemon - return a page with favorited Pokemon
 router.get('/', function(req, res) {
@@ -18,10 +22,17 @@ router.post('/', function(req, res) {
   db.pokemon.create({
     name: req.body.name
   }).then(function(poke) {
-    console.log('Created: ', poke.name);
+    res.redirect('/pokemon');
   })
-  res.redirect('pokemon');
 });
+
+router.delete('/:id', function(req, res) {
+  db.pokemon.destroy({
+    where: {id: req.params.id}
+  }).then(function(poke){
+    res.redirect('/pokemon')//Not 'pokemon', coz it direct to '/pokemon/id/pokemon'
+  })
+})
 
 // GET /pokemon/:id - rander a show page with infomation about the pokemon by its row id
 router.get('/:id', function (req, res) {

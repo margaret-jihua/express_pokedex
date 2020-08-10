@@ -1,17 +1,23 @@
 <div class="container">
     <h1>Favorite Pokemons</h1>
-
-    <% myPoke.forEach(p => { %>
-        <div>
-            <h2>
-                <a href="/pokemon/<%= p.id %>">
-                <%= p.name %>
-                </a>
-            </h2>
-            <form method="POST" action="/">
-                <a type="submit" class="btn-floating waves-effect waves-light lightblue"><i class="material-icons">clear</i></a>
-            </form>
-        
-        </div>
-    <% }) %> 
+    <ul class="collection with-header">
+        <% myPoke.forEach((p) => { %>
+            <li class="collection-item" >
+                <div class="row">
+                    <div class="col s11" font-size=70px>
+                        <a href="/pokemon/<%= p.id %>">
+                            <h5><%= p.name %></h5>
+                        </a>  
+                    </div>
+                    <div class="col s1">
+                        <form method="POST" action="/pokemon/<%= p.id %>/?_method=DELETE" class="lightblue secondary-content">
+                            <button type="submit" class="btn-floating  waves-effect waves-light" value="Delete">
+                                <i class="material-icons">clear</i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </li>
+        <% }) %> 
+    </ul>
 </div>
